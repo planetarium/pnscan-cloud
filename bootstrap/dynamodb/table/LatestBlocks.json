@@ -1,0 +1,31 @@
+{
+        "AttributeDefinitions": [
+            {
+                "AttributeName": "index", 
+                "AttributeType": "N"
+            }, 
+            {
+                "AttributeName": "type", 
+                "AttributeType": "S"
+            }
+        ], 
+        "ProvisionedThroughput": {
+            "WriteCapacityUnits": 20,
+            "ReadCapacityUnits": 20
+        },
+        "TableName": "LatestBlocks",
+        "StreamSpecification": {
+            "StreamViewType": "NEW_IMAGE", 
+            "StreamEnabled": true
+        }, 
+        "KeySchema": [
+            {
+                "KeyType": "HASH", 
+                "AttributeName": "type"
+            }, 
+            {
+                "KeyType": "RANGE", 
+                "AttributeName": "index"
+            }
+        ]
+}

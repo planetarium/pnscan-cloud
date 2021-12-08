@@ -1,0 +1,17 @@
+{
+  "region": "ap-northeast-2",
+  "credentials": {
+    "accessKeyId": "",
+    "secretAccessKey": ""
+  },
+  "iamRoleArn": "",
+
+  "coinMarketCapKeys": {
+    "alias": "key"
+  },
+  "graphqlEndpoints": [
+    "http://9c-network-spot-568092613.ap-northeast-2.elb.amazonaws.com/graphql/",
+  ],
+  "namespace": "prod",
+  "s3WebBucketName": "9cscan-bucket"
+}

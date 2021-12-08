@@ -1,0 +1,6 @@
+.idea
+.config
+.deploy
+node_modules
+project/*.zip
+.manually.json

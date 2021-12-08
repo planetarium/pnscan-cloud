@@ -1,0 +1,79 @@
+{
+    "AttributeDefinitions": [
+        {
+            "AttributeName": "blockIndex",
+            "AttributeType": "N"
+        },
+        {
+            "AttributeName": "timestamp",
+            "AttributeType": "S"
+        },
+        {
+            "AttributeName": "txIdSeq",
+            "AttributeType": "S"
+        },
+        {
+            "AttributeName": "typeId",
+            "AttributeType": "S"
+        }
+    ],
+    "GlobalSecondaryIndexes": [
+        {
+            "IndexName": "typeId-index",
+            "Projection": {
+                "ProjectionType": "INCLUDE",
+                "NonKeyAttributes": [
+                    "txIdSeq"
+                ]
+            },
+            "ProvisionedThroughput": {
+                "WriteCapacityUnits": 20,
+                "ReadCapacityUnits": 20
+            },
+            "KeySchema": [
+                {
+                    "KeyType": "HASH",
+                    "AttributeName": "typeId"
+                },
+                {
+                    "KeyType": "RANGE",
+                    "AttributeName": "timestamp"
+                }
+            ]
+        },
+        {
+            "IndexName": "block-index",
+            "Projection": {
+                "ProjectionType": "INCLUDE",
+                "NonKeyAttributes": [
+                    "txIdSeq"
+                ]
+            },
+            "ProvisionedThroughput": {
+                "WriteCapacityUnits": 20,
+                "ReadCapacityUnits": 20
+            },
+            "KeySchema": [
+                {
+                    "KeyType": "HASH",
+                    "AttributeName": "blockIndex"
+                },
+                {
+                    "KeyType": "RANGE",
+                    "AttributeName": "timestamp"
+                }
+            ]
+        }
+    ],
+    "ProvisionedThroughput": {
+        "WriteCapacityUnits": 20,
+        "ReadCapacityUnits": 20
+    },
+    "TableName": "Action",
+    "KeySchema": [
+        {
+            "KeyType": "HASH",
+            "AttributeName": "txIdSeq"
+        }
+    ]
+}

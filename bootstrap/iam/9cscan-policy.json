@@ -1,0 +1,82 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Action": [
+        "lambda:*"
+      ],
+      "Resource": [
+        "arn:aws:lambda:*:*:function:*9cscan*",
+        "arn:aws:lambda:*:*:event-source-mapping:*"
+      ]
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+        "s3:CreateBucket",
+        "s3:PutBucketWebsite",
+        "s3:PutBucketPolicy",
+        "s3:PutBucketAcl",
+        "s3:PutObject",
+        "s3:PutBucketTagging",
+        "SNS:CreateTopic",
+        "SNS:ListTopics",
+        "iam:PassRole",
+        "events:PutRule",
+        "events:PutTargets",
+        "dynamodb:CreateTable",
+        "states:StopExecution",
+        "states:StartExecution",
+        "states:CreateStateMachine",
+        "cloudformation:*",
+        "lambda:CreateEventSourceMapping"
+      ],
+      "Resource": "*"
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+        "s3:*"
+      ],
+      "Resource": "arn:aws:s3:::*9cscan*"
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+        "apigateway:POST",
+        "apigateway:PUT",
+        "apigateway:GET"
+      ],
+      "Resource": "arn:aws:apigateway:*::*"
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+        "dynamodb:BatchGetItem",
+        "dynamodb:GetItem",
+        "dynamodb:Query",
+        "dynamodb:Scan",
+        "dynamodb:BatchWriteItem",
+        "dynamodb:PutItem",
+        "dynamodb:UpdateItem",
+        "dynamodb:ListStreams",
+        "dynamodb:DescribeTable",
+        "dynamodb:GetRecords",
+        "dynamodb:GetShardIterator",
+        "dynamodb:DescribeStream",
+        "dynamodb:ListStreams",
+        "dynamodb:DeleteItem"
+      ],
+      "Resource": "arn:aws:dynamodb:*:*:table/*"
+    },
+    {
+      "Effect": "Allow",
+      "Action": [
+        "execute-api:Invoke",
+        "execute-api:ManageConnections"
+      ],
+      "Resource": "arn:aws:execute-api:*:*:*"
+    }
+  ]
+}

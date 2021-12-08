@@ -1,0 +1,35 @@
+{
+  "name": "9cscan-cloud",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "submodule": "git submodule update --init --recursive",
+    "create-db": "node command.js createDB",
+    "create-s3": "node command.js createS3",
+    "create-sync": "node command.js createSync",
+    "create-api": "node command.js createAPI",
+    "create-ws": "node command.js createWebsocket",
+    "create-checker": "node command.js createChecker",
+    "deploy-sync": "npm install --prefix ./project/sync; node command.js deploySync",
+    "deploy-api": "npm install --prefix ./project/api; node command.js deployAPI",
+    "deploy-ws": "npm install --prefix ./project/websocket; node command.js deployWS",
+    "deploy-checker": "npm install --prefix ./project/checker; node command.js deployChecker",
+    "check-api": "node command.js checkDeployedAPI",
+    "check-ws": "node command.js checkDeployedWS",
+    "check-s3": "node command.js checkDeployedS3",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "@aws-sdk/client-cloudformation": "^3.40.0",
+    "archiver": "^5.3.0",
+    "aws-sdk": "^2.1024.0",
+    "grunt": "^1.0.4",
+    "grunt-cli": "^1.2.0"
+  },
+  "devDependencies": {
+    "websocket": "^1.0.34"
+  }
+}

@@ -1,0 +1,93 @@
+{
+        "AttributeDefinitions": [
+            {
+                "AttributeName": "hash", 
+                "AttributeType": "S"
+            }, 
+            {
+                "AttributeName": "index", 
+                "AttributeType": "N"
+            }, 
+            {
+                "AttributeName": "miner", 
+                "AttributeType": "S"
+            }, 
+            {
+                "AttributeName": "type", 
+                "AttributeType": "S"
+            }
+        ], 
+        "GlobalSecondaryIndexes": [
+            {
+                "IndexName": "block-index",
+                "Projection": {
+                    "ProjectionType": "KEYS_ONLY"
+                }, 
+                "ProvisionedThroughput": {
+                    "WriteCapacityUnits": 20,
+                    "ReadCapacityUnits": 20
+                }, 
+                "KeySchema": [
+                    {
+                        "KeyType": "HASH", 
+                        "AttributeName": "type"
+                    }, 
+                    {
+                        "KeyType": "RANGE", 
+                        "AttributeName": "index"
+                    }
+                ]
+            },
+            {
+                "IndexName": "hash-index",
+                "Projection": {
+                    "ProjectionType": "KEYS_ONLY"
+                }, 
+                "ProvisionedThroughput": {
+                    "WriteCapacityUnits": 20,
+                    "ReadCapacityUnits": 20
+                }, 
+                "KeySchema": [
+                    {
+                        "KeyType": "HASH", 
+                        "AttributeName": "hash"
+                    }, 
+                    {
+                        "KeyType": "RANGE", 
+                        "AttributeName": "index"
+                    }
+                ]
+            },
+            {
+                "IndexName": "miner-index",
+                "Projection": {
+                    "ProjectionType": "KEYS_ONLY"
+                }, 
+                "ProvisionedThroughput": {
+                    "WriteCapacityUnits": 20,
+                    "ReadCapacityUnits": 20
+                }, 
+                "KeySchema": [
+                    {
+                        "KeyType": "HASH", 
+                        "AttributeName": "miner"
+                    }, 
+                    {
+                        "KeyType": "RANGE", 
+                        "AttributeName": "index"
+                    }
+                ]
+            }
+        ], 
+        "ProvisionedThroughput": {
+            "WriteCapacityUnits": 20,
+            "ReadCapacityUnits": 20
+        }, 
+        "TableName": "Block",
+        "KeySchema": [
+            {
+                "KeyType": "HASH", 
+                "AttributeName": "index"
+            }
+        ]
+}

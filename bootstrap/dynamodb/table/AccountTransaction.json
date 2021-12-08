@@ -1,0 +1,107 @@
+{
+    "TableName": "AccountTransaction",
+    "AttributeDefinitions": [
+        {
+            "AttributeName": "address",
+            "AttributeType": "S"
+        },
+        {
+            "AttributeName": "addressWithType",
+            "AttributeType": "S"
+        },
+        {
+            "AttributeName": "blockIndex",
+            "AttributeType": "N"
+        },
+        {
+            "AttributeName": "pk",
+            "AttributeType": "S"
+        },
+        {
+            "AttributeName": "txId",
+            "AttributeType": "S"
+        }
+    ],
+    "GlobalSecondaryIndexes": [
+        {
+            "IndexName": "address-index",
+            "Projection": {
+                "ProjectionType": "INCLUDE",
+                "NonKeyAttributes": [
+                    "txId",
+                    "type",
+                    "accountUpdated"
+                ]
+            },
+            "ProvisionedThroughput": {
+                "WriteCapacityUnits": 20,
+                "ReadCapacityUnits": 20
+            },
+            "KeySchema": [
+                {
+                    "KeyType": "HASH",
+                    "AttributeName": "address"
+                },
+                {
+                    "KeyType": "RANGE",
+                    "AttributeName": "blockIndex"
+                }
+            ]
+        },
+        {
+            "IndexName": "action-index",
+            "Projection": {
+                "ProjectionType": "INCLUDE",
+                "NonKeyAttributes": [
+                    "txId",
+                    "type",
+                    "accountUpdated"
+                ]
+            },
+            "ProvisionedThroughput": {
+                "WriteCapacityUnits": 20,
+                "ReadCapacityUnits": 20
+            },
+            "KeySchema": [
+                {
+                    "KeyType": "HASH",
+                    "AttributeName": "addressWithType"
+                },
+                {
+                    "KeyType": "RANGE",
+                    "AttributeName": "blockIndex"
+                }
+            ]
+        },
+        {
+            "IndexName": "block-index",
+            "Projection": {
+                "ProjectionType": "KEYS_ONLY"
+            },
+            "ProvisionedThroughput": {
+                "WriteCapacityUnits": 20,
+                "ReadCapacityUnits": 20
+            },
+            "KeySchema": [
+                {
+                    "KeyType": "HASH",
+                    "AttributeName": "blockIndex"
+                },
+                {
+                    "KeyType": "RANGE",
+                    "AttributeName": "txId"
+                }
+            ]
+        }
+    ],
+    "ProvisionedThroughput": {
+        "WriteCapacityUnits": 20,
+        "ReadCapacityUnits": 20
+    },
+    "KeySchema": [
+        {
+            "KeyType": "HASH",
+            "AttributeName": "pk"
+        }
+    ]
+}

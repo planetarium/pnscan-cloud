@@ -1,0 +1,18 @@
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Effect": "Allow",
+      "Principal": {
+        "Service": [
+          "apigateway.amazonaws.com",
+          "lambda.amazonaws.com",
+          "states.amazonaws.com",
+          "events.amazonaws.com",
+          "dynamodb.amazonaws.com"
+        ]
+      },
+      "Action": "sts:AssumeRole"
+    }
+  ]
+}

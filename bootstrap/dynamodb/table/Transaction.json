@@ -1,0 +1,45 @@
+{
+    "AttributeDefinitions": [
+        {
+            "AttributeName": "blockIndex",
+            "AttributeType": "N"
+        },
+        {
+            "AttributeName": "id",
+            "AttributeType": "S"
+        }
+    ],
+    "GlobalSecondaryIndexes": [
+        {
+            "IndexName": "block-index",
+            "Projection": {
+                "ProjectionType": "KEYS_ONLY"
+            },
+            "ProvisionedThroughput": {
+                "WriteCapacityUnits": 20,
+                "ReadCapacityUnits": 20
+            },
+            "KeySchema": [
+                {
+                    "KeyType": "HASH",
+                    "AttributeName": "blockIndex"
+                },
+                {
+                    "KeyType": "RANGE",
+                    "AttributeName": "id"
+                }
+            ]
+        }
+    ],
+    "ProvisionedThroughput": {
+        "WriteCapacityUnits": 20,
+        "ReadCapacityUnits": 20
+    },
+    "TableName": "Transaction",
+    "KeySchema": [
+        {
+            "KeyType": "HASH",
+            "AttributeName": "id"
+        }
+    ]
+}
