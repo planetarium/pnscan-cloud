@@ -8,16 +8,18 @@ async function notifySlack(text) {
     })
 }
 async function checkAndNotify() {
-    let {data} = await axios.get('https://api.9cscan.com/status')
-    if (data['nodeGap'] > 50 || data['syncGap'] > 50) {
-        await notifySlack(`9cscan.com node is delayed - nodeGap (${data['nodeGap']}) syncGap (${data['syncGap']})`)
-    }
     let {data:blocks} = await axios.get('https://api.9cscan.com/blocks?limit=1')
     let delaySecond = (+new Date - new Date(blocks['blocks'][0].timestamp)) / 1000
-
     if (delaySecond > 600) {
         await notifySlack('9cscan.com blocks sync is delayed: ' + delaySecond + ' sec')
     }
+
+    let {data} = await axios.get('https://api.9cscan.com/status')
+    if (data['nodeGap'] > 50 || data['syncGap'] > 50) {
+        await notifySlack(`9cscan.com node is delayed - nodeGap (${data['nodeGap']}) syncGap (${data['syncGap']} - ${delaySecond} sec)`)
+    }
+
+
 
 }
 

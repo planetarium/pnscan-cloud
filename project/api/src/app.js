@@ -41,7 +41,7 @@ app.get('/status', async function(req, res) {
     }
     await Promise.all(promises)
     latestIndex = _.max([0, ...nodes.map(n => n.blockIndex)])
-    nodeGap = latestIndex - _.min(nodes.map(n => n.blockIndex))
+    nodeGap = latestIndex - _.min(nodes.filter(n => n.endpoint.indexOf('9cscan') >= 0).map(n => n.blockIndex || 0))
   } catch(e) {
 
   }
