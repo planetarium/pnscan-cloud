@@ -61,12 +61,13 @@ class Command {
     async createSync() {
         let {arn} = await this.lambda.createFunction(this.syncName, {Timeout: '90'})
         let {stateMachineArn} = await this.stepFunction.createCronEvery5Seconds('cronEvery5Sec-' + this.syncName, arn)
+        await this.eventBridge.createEventRule(this.syncName, stateMachineArn)
+
         await this.lambda.updateEnvValue(this.syncName, {
             'region': config['region'],
             'tablePrefix': this.dynamo.getPrefix(),
             'graphqlEndpoints': JSON.stringify(config['graphqlEndpoints'])
         })
-        await this.eventBridge.createEventRule(this.syncName, stateMachineArn)
     }
 
     /**

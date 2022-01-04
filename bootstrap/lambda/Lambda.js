@@ -8,6 +8,19 @@ class Lambda {
         this.lambda = new AWS.Lambda(config)
     }
     async updateEnvValue(lambdaName, data) {
+        for (let tryCount = 0; tryCount < 10; tryCount++) {
+            let {Configuration} = await this.lambda.getFunction({
+                FunctionName: lambdaName
+            }).promise()
+
+            if (Configuration.State == 'Active') {
+                break
+            } else {
+                console.log('Waiting lambda will be activated')
+                await new Promise(resolve => setTimeout(resolve, 1000))
+            }
+        }
+
         let {Environment} = await this.lambda.getFunctionConfiguration({
             FunctionName: lambdaName
         }).promise()

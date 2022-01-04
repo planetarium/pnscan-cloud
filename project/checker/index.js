@@ -7,6 +7,15 @@ async function notifySlack(text) {
         data: {text}
     })
 }
+
+async function isGapWarning() {
+    let {data} = await axios.get('https://api.9cscan.com/status')
+    if (data['nodeGap'] > 50 || data['syncGap'] > 50) {
+        return data
+    }
+
+    return false
+}
 async function checkAndNotify() {
     let {data:blocks} = await axios.get('https://api.9cscan.com/blocks?limit=1')
     let delaySecond = (+new Date - new Date(blocks['blocks'][0].timestamp)) / 1000
@@ -14,13 +23,12 @@ async function checkAndNotify() {
         await notifySlack('9cscan.com blocks sync is delayed: ' + delaySecond + ' sec')
     }
 
-    let {data} = await axios.get('https://api.9cscan.com/status')
-    if (data['nodeGap'] > 50 || data['syncGap'] > 50) {
-        await notifySlack(`9cscan.com node is delayed - nodeGap (${data['nodeGap']}) syncGap (${data['syncGap']} - ${delaySecond} sec)`)
+    if (await isGapWarning() && await isGapWarning()) {
+        let data = await isGapWarning()
+        if (data) {
+            await notifySlack(`9cscan.com node is delayed - nodeGap (${data['nodeGap']}) syncGap (${data['syncGap']} - ${delaySecond} sec)`)
+        }
     }
-
-
-
 }
 
 exports.get = async function(event, context, callback) {
