@@ -10,7 +10,7 @@ async function notifySlack(text) {
 
 async function isGapWarning() {
     let {data} = await axios.get('https://api.9cscan.com/status')
-    if (data['nodeGap'] > 50 || data['syncGap'] > 50) {
+    if (data['syncGap'] > 50) {
         return data
     }
 
