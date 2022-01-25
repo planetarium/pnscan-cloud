@@ -31,7 +31,7 @@ app.get('/status', async function(req, res) {
       promises.push(new Promise(async (resolve, reject) => {
         let endpoint = ncc.endpoints[i]
         try {
-          let blockIndex = await ncc.getLatestBlockIndex(i, 5000)
+          let blockIndex = await ncc.getLatestBlockIndex(i, 10000)
           nodes.push({endpoint, blockIndex})
         } catch(e) {
           nodes.push({endpoint, blockIndex: null})

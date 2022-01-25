@@ -30,7 +30,6 @@ class NccDatasource {
                   lens
                   level
                   name
-                  rankingMapAddress
                   tail
                   updatedAt
                 }

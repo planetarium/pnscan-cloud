@@ -13,8 +13,21 @@ function prefix(name) {
 
 class DynamoRepository {
     constructor() {
-        AWS.config.update({region:process.env.region});
+        AWS.config.update({region:process.env.region || 'ap-northeast-2'});
         this.client = new AWS.DynamoDB.DocumentClient();
+    }
+    async getTotalCount(query) {
+        let resultCount = 0
+        for (let i = 0; i < 20; i++) {
+            let {Count, LastEvaluatedKey} = await this.client.query(query).promise()
+            resultCount += Count
+            if (LastEvaluatedKey) {
+                query['ExclusiveStartKey'] = LastEvaluatedKey
+            } else {
+                break
+            }
+        }
+        return resultCount
     }
     async getLastBlockIndex() {
         const {Items} = await this.client.query({
@@ -298,7 +311,7 @@ class DynamoRepository {
     async checkTransactionsSaved(block) {
         console.time('Validate Transactions')
         try {
-            let {Count: txCount} = await this.client.query({
+            let txCount = await this.getTotalCount({
                 TableName: prefix("Transaction"),
                 IndexName: "block-index",
                 ProjectionExpression: 'id',
@@ -306,7 +319,7 @@ class DynamoRepository {
                 ExpressionAttributeValues: {
                     ":blockIndex": block.index,
                 }
-            }).promise()
+            })
 
             if (block.transactions.length != txCount) {
                 return false
@@ -320,7 +333,7 @@ class DynamoRepository {
 
 
         console.time('Validate AccountTransactions')
-        let {Count: involvedCount} = await this.client.query({
+        let involvedCount = await this.getTotalCount({
             TableName: prefix("AccountTransaction"),
             IndexName: "block-index",
             ProjectionExpression: 'blockIndex',
@@ -328,7 +341,7 @@ class DynamoRepository {
             ExpressionAttributeValues: {
                 ":blockIndex": block.index,
             }
-        }).promise()
+        })
 
         let count = block.transactions.map(tx => {
             let items = tx.updatedAddresses.map(address => address.toLowerCase())
@@ -345,7 +358,7 @@ class DynamoRepository {
 
 
         console.time('Validate Action')
-        let {Count: actionCount} = await this.client.query({
+        let actionCount = await this.getTotalCount({
             TableName: prefix("Action"),
             IndexName: "block-index",
             ProjectionExpression: 'blockIndex',
@@ -353,7 +366,7 @@ class DynamoRepository {
             ExpressionAttributeValues: {
                 ":blockIndex": block.index,
             }
-        }).promise()
+        })
 
         let aCount = block.transactions.map(tx => {
             return tx.actions && tx.actions.length || 0

@@ -68,7 +68,7 @@ class Sync {
 
             const loopSize = Math.min(latestIndex - lastIndex, 60)
 
-            console.log('latest %d : last %d', latestIndex, lastIndex)
+            console.log('latest %d : last %d (endpoint %d)', latestIndex, lastIndex, endpointIndex)
             console.log('NEXT BLOCK INDEX', lastIndex + 1)
             let blocks = {}
 
