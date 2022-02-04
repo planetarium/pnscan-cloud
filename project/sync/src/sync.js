@@ -25,7 +25,10 @@ class Sync {
         }
         addresses.push(...block.transactions.map(t => t.signer))
         if (containUpdatedAddress) {
-            addresses.push(..._.flatten(block.transactions.map(t => t.updatedAddresses)))
+            // updatedAddress 에 account가 포함되어 있을 수 있으나, updatedAddress가 많을 경우 불필요한
+            // 주소까지 계속 갱신해줘야해서 여러가지 성능 저하를 유발함. UI에서 account를 접근할때 갱신해주기때문에
+            // 굳이 미리 갱신하지 않기로 함.
+            // addresses.push(..._.flatten(block.transactions.map(t => t.updatedAddresses)))
         }
 
         addresses = _.uniq(addresses)
