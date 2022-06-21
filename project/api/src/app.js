@@ -70,15 +70,18 @@ app.post('/account/refresh', async function(req, res) {
 app.get('/transactions/:id/status', async function(req, res) {
   let tx = await dynamo.getTransactionById(req.params.id)
   if (tx) {
-    let {endpointIndex} = await ncc.getLatestEndpointIndex(tx.blockIndex)
-    let status = await ncc.getTxStatus(tx.id, endpointIndex)
-
-    if (status && tx.status != status) {
-      tx.status = status
-      await dynamo.saveTransaction(tx)
+    if (tx.status != 'SUCCESS' || tx.status != 'FAILURE') {
+      let {endpointIndex} = await ncc.getLatestEndpointIndex(tx.blockIndex)
+      let status = await ncc.getTxStatus(tx.id, endpointIndex)
+      if (status && tx.status != status) {
+        tx.status = status
+        await dynamo.saveTransaction(tx)
+      }
     }
 
     res.send({status: tx.status})
+  } else {
+    res.send({status: null})
   }
 });
 

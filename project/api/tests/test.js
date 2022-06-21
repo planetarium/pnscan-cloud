@@ -93,6 +93,13 @@ describe('Transactions', function() {
     let {body:body2} = await request.get('/accounts/0x3217f757064cd91caba40a8ef3851f4a9e5b4985/transactions?before=' + body.before)
     console.log(body2)
   })
+
+  it('Request Transaction Not Exists', async function() {
+    let {body} = await request.get('/transactions/0x3217f757064cd91caba40a8ef3851f4a9e5b4985')
+    console.log(body)
+    let {body: {status}} = await request.get('/transactions/0x3217f757064cd91caba40a8ef3851f4a9e5b4985/status')
+    test.assert.equal(status, null)
+  })
 });
 
 
