@@ -81,7 +81,7 @@ app.get('/transactions/:id/status', async function(req, res) {
 
     res.send({status: tx.status})
   } else {
-    res.send({status: null})
+    res.send({status: 'INVALID'})
   }
 });
 
