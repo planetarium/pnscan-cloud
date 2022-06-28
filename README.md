@@ -1,5 +1,14 @@
-# 9cscan-cloud
-9cscan backend is built on the aws serverless architecture.
+# pnscan-cloud
+pnscan-cloud is the fork of [9cscan-cloud][] from [tx0x][]. 9cscan-cloud is the serverless backend of [9cscan][], most popular block explorer for [Nine Chronicles][]
+
+pnscan and pnscan-cloud's have same purpose (i.e., block explorer for the network built by [Libplanet][]), but it has been elimiated Nine Chronicles specific feature and relies APIs provided by [Libplanet.Explorer][] only, to suggest the reference block explorer implementation for production.
+
+[9cscan-cloud]: https://github.com/tx0x/9cscan-cloud
+[9cscan]: https://9cscan.com/
+[tx0x]: https://github.com/tx0x
+[Nine Chronicles]: https://nine-chronicles.com
+[Libplanet]: https://libplanet.io
+[Libplanet.Explorer]: https://github.com/planetarium/libplanet/tree/main/Libplanet.Explorer
 
 ### API
 **[APIGateway] -> [Lambda] -> [Dynamodb]**
