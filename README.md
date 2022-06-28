@@ -1,14 +1,18 @@
 # pnscan-cloud
 pnscan-cloud is the fork of [9cscan-cloud][] from [tx0x][]. 9cscan-cloud is the serverless backend of [9cscan][], most popular block explorer for [Nine Chronicles][]
 
-pnscan and pnscan-cloud's have same purpose (i.e., block explorer for the network built by [Libplanet][]), but it has been elimiated Nine Chronicles specific feature and relies APIs provided by [Libplanet.Explorer][] only, to suggest the reference block explorer implementation for production.
+pnscan and pnscan-cloud's have same purpose (i.e., block explorer for the network built by [Libplanet][]), but it has been elimiated Nine Chronicles-specific features and relies APIs provided by [`Libplanet.Explorer`][] only, to suggest the reference block explorer implementation for production.
+
+At this moment, it assumes [PlanetNode][] as target implementation. but since relying only `Libplanet.Explorer` API, it can be compatible with any other chain using that APIs (even Nine Chronicles).
 
 [9cscan-cloud]: https://github.com/tx0x/9cscan-cloud
 [9cscan]: https://9cscan.com/
 [tx0x]: https://github.com/tx0x
 [Nine Chronicles]: https://nine-chronicles.com
 [Libplanet]: https://libplanet.io
-[Libplanet.Explorer]: https://github.com/planetarium/libplanet/tree/main/Libplanet.Explorer
+[`Libplanet.Explorer`]: https://github.com/planetarium/libplanet/tree/main/Libplanet.Explorer
+[PlanetNode]: https://github.com/planetarium/planet-node
+
 
 ### API
 **[APIGateway] -> [Lambda] -> [Dynamodb]**
@@ -27,17 +31,15 @@ When a new block is created, it is broadcast through WebSocket.
 
 ## Getting started
 ### 1. IAM (in the AWS console)
-1. Manually create a new IAM policy using `/bootstrap/iam/9cscan-policy.json`
+1. Manually create a new IAM policy using `/bootstrap/iam/pnscan-policy.json`
    https://console.aws.amazon.com/iamv2/home#/policies
-2. Manually create a new IAM role using `/bootstrap/iam/9cscan-role-trust.json`
+2. Manually create a new IAM role using `/bootstrap/iam/pnscan-role-trust.json`
    https://console.aws.amazon.com/iamv2/home#/roles
 3. Manually create a new IAM user with the policy you created.
 
 ### 2. Pull this project to local
 
 ```
-git clone https://github.com/tx0x/9cscan-cloud
-cd 9cscan-cloud
 npm install
 ```
 
@@ -56,13 +58,8 @@ npm install
   
   // Required. Arn of role you created (1.2)
   "iamRoleArn": "",
-
-  // Optional. to fetch WNCG price
-  "coinMarketCapKeys": {
-    "alias": "key" 
-  },
   
-  //Required. Nine Chronicles graphql endpoints
+  //Required. PlanetNode graphql endpoints
   "graphqlEndpoints": [
     "http://your-host1/graphql/",
     "http://your-host2/graphql/"
@@ -72,7 +69,7 @@ npm install
   "namespace": "prod",
   
   //Required.
-  "s3WebBucketName": "9cscan-bucket"
+  "s3WebBucketName": "pnscan-bucket"
 }
 ```
 
@@ -157,7 +154,7 @@ Get index.html
 ### 7. Web Client
 For the web client, use the following project:
 
-https://github.com/tx0x/9cscan.com
+https://github.com/planetarium/pnscan-frontend
 
 ## License
 
