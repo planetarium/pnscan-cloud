@@ -31,9 +31,9 @@ When a new block is created, it is broadcast through WebSocket.
 
 ## Getting started
 ### 1. IAM (in the AWS console)
-1. Manually create a new IAM policy using `/bootstrap/iam/pnscan-policy.json`
+1. Manually create a new IAM policy using `/bootstrap/iam/policy.json`
    https://console.aws.amazon.com/iamv2/home#/policies
-2. Manually create a new IAM role using `/bootstrap/iam/pnscan-role-trust.json`
+2. Manually create a new IAM role using `/bootstrap/iam/role-trust.json`
    https://console.aws.amazon.com/iamv2/home#/roles
 3. Manually create a new IAM user with the policy you created.
 
