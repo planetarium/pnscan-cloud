@@ -20,10 +20,10 @@ class Command {
         this.stepFunction = new StepFunction(config)
         this.eventBridge = new EventBridge(config)
 
-        this.apiName = namespaced('9cscan-api')
-        this.syncName = namespaced('9cscan-sync')
-        this.wsName = namespaced('9cscan-ws')
-        this.checkerName = namespaced('9cscan-checker')
+        this.apiName = namespaced('pnscan-api')
+        this.syncName = namespaced('pnscan-sync')
+        this.wsName = namespaced('pnscan-ws')
+        this.checkerName = namespaced('pnscan-checker')
     }
 
     async createDB() {

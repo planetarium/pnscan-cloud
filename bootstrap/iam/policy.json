@@ -7,7 +7,7 @@
         "lambda:*"
       ],
       "Resource": [
-        "arn:aws:lambda:*:*:function:*9cscan*",
+        "arn:aws:lambda:*:*:function:*pnscan*",
         "arn:aws:lambda:*:*:event-source-mapping:*"
       ]
     },
@@ -39,7 +39,7 @@
       "Action": [
         "s3:*"
       ],
-      "Resource": "arn:aws:s3:::*9cscan*"
+      "Resource": "arn:aws:s3:::*pnscan*"
     },
     {
       "Effect": "Allow",
