@@ -166,15 +166,17 @@ class NccDatasource {
           "variables":{"txId":txId},
           "query":`
             query query($txId: TxId!) {
-              transaction {
-                transactionResult(txId: $txId) {
-                  txStatus
+              explorer {
+                transactionQuery {
+                  transactionResult(txId: $txId) {
+                    txStatus
+                  }
                 }
               }
             }`
         }
       })
-      return data['data']['transaction']['transactionResult']['txStatus']
+      return data['data']['explorer']['transactionQuery']['transactionResult']['txStatus']
     } catch(e) {
       console.log(e)
     }
