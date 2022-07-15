@@ -165,7 +165,7 @@ class NccDatasource {
         data: {
           "variables":{"txId":txId},
           "query":`
-            query query($txId: TxId!) {
+            query query($txId: ID!) {
               explorer {
                 transactionQuery {
                   transactionResult(txId: $txId) {
